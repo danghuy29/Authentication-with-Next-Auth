@@ -7,7 +7,7 @@ const useAuthentication = () => {
       aws_cognito_region: awsExports.REGION,
       userPoolId: awsExports.USER_POOL_ID,
       userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID,
-      usernameAlias: "email",
+      // usernameAlias: "email",
     },
   });
 

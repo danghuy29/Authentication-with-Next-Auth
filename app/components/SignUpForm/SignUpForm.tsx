@@ -5,8 +5,9 @@ import useAuthentication from "@/app/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const LoginForm = () => {
+const SignUpForm = () => {
   const [formValue, setFormValue] = useState<{ [key: string]: string }>({
+    email: "",
     userName: "",
     password: "",
   });
@@ -15,12 +16,12 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { userName, password } = formValue;
+    const { email, password } = formValue;
     try {
-      await logIn(userName, password);
+      await logIn(email, password);
       router.push("/");
-    } catch (e: unknown) {
-      const { message } = e as { message: string };
+    } catch (e) {
+      console.log(e);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,48 +36,58 @@ const LoginForm = () => {
     <form
       action=""
       onSubmit={handleSubmit}
-      className="flex items-center justify-center h-[100vh] text-white"
+      className="flex items-center justify-center h-[100vh] text-white	"
       autoComplete="off"
     >
-      <div className="w-[80%] mx-auto max-w-xl flex flex-col items-center h-[70%] rounded-[28px] justify-center  backdrop-blur-xl border-solid border-[2px] border-white">
-        <h3 className="text-5xl mb-14">Log In</h3>
+      <div className="w-[80%] mx-auto max-w-xl flex flex-col items-center py-12 rounded-[28px] justify-center border-solid border-[2px] border-white backdrop-blur-xl">
+        <h3 className="text-5xl mb-14">Sign up</h3>
         <FormField
           type="text"
-          id="login-user"
-          placeholder="User..."
+          id="userName"
+          placeholder="User name..."
           name="userName"
-          label="User name"
+          label="User"
+          className="w-[90%] max-w-[507px] mb-[27px]"
+          onChange={handleChange}
+        />
+        <FormField
+          type="text"
+          id="email"
+          placeholder="Email..."
+          name="email"
+          label="Email"
           className="w-[90%] max-w-[507px] mb-[27px]"
           onChange={handleChange}
         />
 
         <FormField
           type="password"
-          id="login-password"
+          id="sign-up-password"
           placeholder="Password..."
-          name="password"
+          name="sign-up-password"
           label="Password"
-          className="w-[90%] max-w-[507px]"
+          className="w-[90%] max-w-[507px] mb-12"
           onChange={handleChange}
         />
-        <p className="mb-14 w-[90%] max-w-[507px] text-right mt-3 text-[#1A7FC1] text-sm italic">
-          Forget password ?
-        </p>
+
+        {/* <FormField
+          type="password"
+          id="confirm-password"
+          placeholder="Confirm Password..."
+          name="confirm-password"
+          label="Confirm Password"
+          className="w-[90%] max-w-[507px] mb-12"
+          onChange={handleChange}
+        /> */}
         <button
           type="submit"
           className="bg-[#1A7FC1] w-[90%] max-w-[507px] h-16 rounded-2xl text-3xl"
         >
-          Log In
+          Sign In
         </button>
-        <p className="mt-[27px]">
-          Don &apos;t have account?{" "}
-          <Link href="/signup" className="text-[#1A7FC1]">
-            Register
-          </Link>
-        </p>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

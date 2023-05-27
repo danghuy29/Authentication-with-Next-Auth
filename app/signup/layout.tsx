@@ -2,8 +2,8 @@ import { Itim } from "next/font/google";
 
 const inter = Itim({ subsets: ["latin"], weight: "400" });
 export const metadata = {
-  title: "Login",
-  description: "Login page with cognito",
+  title: "Sign in",
+  description: "Sign In page with cognito",
 };
 
 export default function RootLayout({

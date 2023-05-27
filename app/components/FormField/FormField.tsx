@@ -24,11 +24,10 @@ const FormField: React.FC<Props> = ({
         id={id}
         name={name}
         placeholder={placeholder}
-        className="w-[100%] h-16 mt-4 bg-transparent outline-none border-[2px] border-solid border-white rounded-2xl py-auto px-4 placeholder-shown:opacity-50 transition-opacity duration-100 ease-linear peer focus:opacity-100"
+        className="w-[100%] h-16 mt-4 bg-transparent outline-none border-[2px] border-solid border-white rounded-2xl py-auto px-4 placeholder-shown:opacity-30 transition-opacity duration-100 ease-linear peer focus:opacity-100"
         onChange={onChange}
-        autoComplete="off"
-        spellCheck={false}
-        autoCapitalize="off"
+        autoComplete="new-password"
+
       />
       <label
         htmlFor={id}

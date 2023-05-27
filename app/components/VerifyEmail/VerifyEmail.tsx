@@ -2,6 +2,7 @@
 import { useState } from "react";
 import VerifyField from "../FormField/VerifyField";
 import { isOneDigitNumber } from "@/app/utils/commonFunction";
+import Button from "../Button/Button";
 const VerifyEmail = () => {
   const [field, setField] = useState<Record<number, string>>({
     1: "",
@@ -16,8 +17,8 @@ const VerifyEmail = () => {
     if (field[fieldName]) {
       if (fieldName < 6) {
         setFocusInput(fieldName + 1);
+        setField({ ...field, [fieldName + 1]: fieldValue });
       }
-      setField({ ...field, [fieldName + 1]: fieldValue });
     } else {
       setField({ ...field, [fieldName]: fieldValue });
     }
@@ -29,8 +30,8 @@ const VerifyEmail = () => {
     } else {
       if (fieldName > 1) {
         setFocusInput(fieldName - 1);
+        setField({ ...field, [fieldName - 1]: "" });
       }
-      setField({ ...field, [fieldName - 1]: "" });
     }
   };
 
@@ -66,10 +67,19 @@ const VerifyEmail = () => {
       setFocusInput(Object.keys(tempField).length);
     }
   };
-
+  const handleVerify = async () => {
+    const verifyCode = Object.values(field).reduce(
+      (result, item) => (result += item),
+      ""
+    );
+    const userName = "";
+    console.log(userName)
+    console.log(verifyCode)
+    // await confirmSignUp(userName, verifyCode);
+  };
   return (
     <div className="flex items-center justify-center h-[100vh] text-white">
-      <div className="text-white w-[90%] mx-auto max-w-2xl flex flex-col h-[70%] rounded-[28px] justify-center  backdrop-blur-xl border-solid border-[2px] border-white px-4">
+      <div className="text-white w-[90%] mx-auto max-w-2xl flex flex-col h-[70%] rounded-[28px] justify-center  backdrop-blur-xl border-solid border-[2px] border-white px-4 animate-[riseUp_0.3s_ease-in-out]">
         <h1 className="text-6xl text-center">
           Please Enter Your Verification Code
         </h1>
@@ -77,7 +87,7 @@ const VerifyEmail = () => {
           Enter the code we sent to your email
         </p>
 
-        <form className="flex  items-center justify-between my-8">
+        <div className="flex  items-center justify-between my-8">
           {[1, 2, 3, 4, 5, 6].map((item) => (
             <VerifyField
               key={item}
@@ -88,14 +98,13 @@ const VerifyEmail = () => {
               onPaste={handlePaste}
             />
           ))}
-        </form>
-
-        <button
-          type="submit"
+        </div>
+        <Button
           className="bg-[#1A7FC1] w-[90%] max-w-[507px] h-16 rounded-xl text-3xl mx-auto"
+          onClick={handleVerify}
         >
           Submit
-        </button>
+        </Button>
         <p className="text-center mt-3 text-cyan-600">Resend Code</p>
       </div>
     </div>

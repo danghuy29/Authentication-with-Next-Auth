@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-import FormField from "../FormField/FormField";
-import useAuthentication from "@/app/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from "react";
+import FormField from "../FormField/FormField";
 
 const SignUpForm = () => {
   const [formValue, setFormValue] = useState<{ [key: string]: string }>({
@@ -11,18 +9,17 @@ const SignUpForm = () => {
     userName: "",
     password: "",
   });
-  const { logIn } = useAuthentication();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { email, password } = formValue;
-    try {
-      await logIn(email, password);
-      router.push("/");
-    } catch (e) {
-      console.log(e);
-    }
+    // const { email, password } = formValue;
+    // try {
+    //   await logIn(email, password);
+    //   router.push("/");
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temp = { ...formValue };
@@ -36,8 +33,8 @@ const SignUpForm = () => {
     <form
       action=""
       onSubmit={handleSubmit}
-      className="flex items-center justify-center h-[100vh] text-white	"
-      autoComplete="off"
+      className="flex items-center justify-center h-[100vh] text-white"
+      autoComplete="new-password"
     >
       <div className="w-[80%] mx-auto max-w-xl flex flex-col items-center py-12 rounded-[28px] justify-center border-solid border-[2px] border-white backdrop-blur-xl">
         <h3 className="text-5xl mb-14">Sign up</h3>

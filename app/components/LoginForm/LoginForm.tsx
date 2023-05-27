@@ -1,27 +1,37 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormField from "../FormField/FormField";
-import useAuthentication from "@/app/hooks/useAuthentication";
+// import useAuthentication from "@/app/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Button from "../Button/Button";
+import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
   const [formValue, setFormValue] = useState<{ [key: string]: string }>({
     userName: "",
     password: "",
   });
-  const { logIn } = useAuthentication();
+  // const { logIn, resendConfirmationCode } = useAuthentication();
   const router = useRouter();
-
+  const [isLogging, setIsLogging] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { userName, password } = formValue;
-    try {
-      await logIn(userName, password);
-      router.push("/");
-    } catch (e: unknown) {
-      const { message } = e as { message: string };
-    }
+    // setIsLogging(true);
+    console.log(userName);
+    console.log(password);
+    // try {
+    //   await logIn(userName, password);
+    //   router.push("/");
+    // } catch (e: unknown) {
+    //   const { message } = e as { message: string };
+    //   if (message === AUTHENTICATION_ERROR_MESSAGE.EMAIL_NOT_VERIFY) {
+    //     await resendConfirmationCode(userName);
+    //     router.push("/verify");
+    //   }
+    // }
+    signIn("cognito");
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temp = { ...formValue };
@@ -36,9 +46,9 @@ const LoginForm = () => {
       action=""
       onSubmit={handleSubmit}
       className="flex items-center justify-center h-[100vh] text-white"
-      autoComplete="off"
+      autoComplete="new-password"
     >
-      <div className="w-[80%] mx-auto max-w-xl flex flex-col items-center h-[70%] rounded-[28px] justify-center  backdrop-blur-xl border-solid border-[2px] border-white">
+      <div className="w-[80%] mx-auto max-w-xl flex flex-col items-center py-8 rounded-[28px] justify-center  backdrop-blur-xl border-solid border-[2px] border-white">
         <h3 className="text-5xl mb-14">Log In</h3>
         <FormField
           type="text"
@@ -62,15 +72,19 @@ const LoginForm = () => {
         <p className="mb-14 w-[90%] max-w-[507px] text-right mt-3 text-[#1A7FC1] text-sm italic">
           Forget password ?
         </p>
-        <button
+
+        <Button
           type="submit"
-          className="bg-[#1A7FC1] w-[90%] max-w-[507px] h-16 rounded-2xl text-3xl"
+          className="bg-[#1A7FC1] w-[90%] max-w-[507px] h-16 rounded-2xl text-3xl relative"
+          disabled={isLogging}
+          isLoading={isLogging}
         >
           Log In
-        </button>
+        </Button>
+
         <p className="mt-[27px]">
           Don &apos;t have account?{" "}
-          <Link href="/signup" className="text-[#1A7FC1]">
+          <Link href="/signup" className="text-[#1A7FC1] ">
             Register
           </Link>
         </p>

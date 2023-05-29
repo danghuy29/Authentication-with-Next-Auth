@@ -18,7 +18,7 @@ const getReviews = async () => {
     collection = await db.collection("listingsAndReviews");
   }
   if (!reviews) {
-    reviews = await collection.find().limit(500).toArray();
+    reviews = await collection.find().limit(100).toArray();
   }
   return reviews;
 };

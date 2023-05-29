@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Session from "../components/Session/Session";
+import Session from "components/Session/Session";
 
 const inter = Inter({ subsets: ["latin"], weight: "400" });
 

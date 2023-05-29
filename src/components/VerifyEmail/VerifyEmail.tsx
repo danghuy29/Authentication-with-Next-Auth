@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import VerifyField from "../FormField/VerifyField";
-import { isOneDigitNumber } from "@/app/utils/commonFunction";
+import { isOneDigitNumber } from "utils/commonFunction";
 import Button from "../Button/Button";
 const VerifyEmail = () => {
   const [field, setField] = useState<Record<number, string>>({

@@ -11,8 +11,12 @@ const handler = NextAuth({
 
     CredentialsProvider({
       name: "Credentials",
-      credentials: {},
-      async authorize() {
+      credentials: {
+        userName: { label: "ten", placeholder: "nhap ten di", type: "text" },
+        password: { label: "pass", placeholder: "nhap pass di", type: "text" },
+      },
+      async authorize(req, res) {
+        console.log("request: ", req)
         const user = {
           id: "1",
           name: "J Smith",
@@ -28,9 +32,9 @@ const handler = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
+  // pages: {
+  //   signIn: "/login",
+  // },
   callbacks: {},
 });
 

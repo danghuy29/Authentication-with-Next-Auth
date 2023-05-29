@@ -19,13 +19,21 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"],
-      "@utils": ["./app/utils/*"],
-      "@/components": ["./app/components/*"],
-      "@/app": ["./app/*"],
+      "@/*": ["./src/*"],
+      "@utils": ["src/utils/*"],
+      "@/components": ["src/components/*"],
+      "@/app": ["src/app/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/getReviews/getReview.js", "app/lib/mongo/index.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/api/getReviews/getReview.js",
+    "src/lib/mongo/index.js"
+  ],
   "exclude": ["node_modules"]
 }

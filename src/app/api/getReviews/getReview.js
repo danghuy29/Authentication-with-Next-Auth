@@ -1,4 +1,4 @@
-import clientPromise from "../../lib/mongo";
+import clientPromise from "../../../lib/mongo";
 
 let client;
 let db;

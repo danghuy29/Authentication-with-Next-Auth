@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    cognitoClientID: process.env.COGNITO_CLIENT_ID,
-    cognitoClientSecret: process.env.COGNITO_CLIENT_SECRET,
-    cognitoDomain: process.env.COGNITO_DOMAIN,
-    cognitoIssuer: process.env.COGNITO_ISSUER,
+    googleClientId: process.env.GOOGLE_CLIENT_ID,
+    googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    baseURL: process.env.NEXT_BASE_URL,
+    mongoDbUrl: process.env.MONGODB_URL,
   },
 };
 

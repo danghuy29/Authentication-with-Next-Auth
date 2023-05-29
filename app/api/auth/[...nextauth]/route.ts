@@ -1,22 +1,37 @@
 import NextAuth from "next-auth";
-import type { NextApiRequest, NextApiResponse } from "next";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
-  providers: [],
-  // Configure one or more authentication providers
-  // providers: [
-  // CognitoProvider({
-  //   clientId: process.env.cognitoClientID as string,
-  //   clientSecret: process.env.cognitoClientSecret as string,
-  //   issuer: process.env.cognitoIssuer,
-  // }),
-  // ],
-  // pages: {
-  //   signIn: "/login",
-  //   signUp: "/signup",
-  // },
-};
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  return await NextAuth(req, res, authOptions);
-};
+const handler = NextAuth({
+  providers: [
+    GoogleProvider({
+      clientId: process.env.googleClientId as string,
+      clientSecret: process.env.googleClientSecret as string,
+    }),
+
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {},
+      async authorize() {
+        const user = {
+          id: "1",
+          name: "J Smith",
+          email: "jsmith@example.com",
+          test: "testing text",
+        };
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
+    }),
+  ],
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {},
+});
+
 export { handler as GET, handler as POST };

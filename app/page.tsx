@@ -1,14 +1,15 @@
-// import { getServerSession } from "next-auth";
+import getReviews from "./api/getReviews/getReview";
 import Authentication from "./components/AuthenComponent/AuthenComponent";
-// import { authOptions } from "./api/auth/[...nextauth]/route";
-// import { redirect } from "next/navigation";
 export default async function Home() {
-  // const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   redirect("/login");
-  //}
+  // const res = await fetch("https:localhost:3000/api/reviews");
+  const reviews = await getReviews();
+  console.log(reviews)
+  console.log(reviews);
   return (
     <main>
+      {reviews.map((item: any) => (
+        <div className="text-white text-sm" key={item.name}>{item.summary}</div>
+      ))}
       <Authentication />
     </main>
   );

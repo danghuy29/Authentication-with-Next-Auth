@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import FormField from "../FormField/FormField";
-// import useAuthentication from "@/app/hooks/useAuthentication";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "../Button/Button";
 import { signIn } from "next-auth/react";
@@ -12,26 +10,25 @@ const LoginForm = () => {
     userName: "",
     password: "",
   });
-  // const { logIn, resendConfirmationCode } = useAuthentication();
-  const router = useRouter();
   const [isLogging, setIsLogging] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { userName, password } = formValue;
-    // setIsLogging(true);
     console.log(userName);
     console.log(password);
-    // try {
-    //   await logIn(userName, password);
-    //   router.push("/");
-    // } catch (e: unknown) {
-    //   const { message } = e as { message: string };
-    //   if (message === AUTHENTICATION_ERROR_MESSAGE.EMAIL_NOT_VERIFY) {
-    //     await resendConfirmationCode(userName);
-    //     router.push("/verify");
-    //   }
+    signIn("credentials", {
+      userName,
+      password,
+      callbackUrl: "/",
+    });
+    // , {
+    //   callbackUrl: "/",
+    //   credentials: {
+    //     username: { label: "Username", type: "text", placeholder: "jsmith" },
+    //     password: { label: "Password", type: "password" },
+    //   },
     // }
-    signIn("cognito");
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temp = { ...formValue };

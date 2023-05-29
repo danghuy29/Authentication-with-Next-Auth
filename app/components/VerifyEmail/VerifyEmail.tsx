@@ -73,8 +73,6 @@ const VerifyEmail = () => {
       ""
     );
     const userName = "";
-    console.log(userName)
-    console.log(verifyCode)
     // await confirmSignUp(userName, verifyCode);
   };
   return (

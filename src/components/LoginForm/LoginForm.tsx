@@ -15,20 +15,11 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { userName, password } = formValue;
-    console.log(userName);
-    console.log(password);
     signIn("credentials", {
-      userName,
-      password,
+      username: userName,
+      password: password,
       callbackUrl: "/",
     });
-    // , {
-    //   callbackUrl: "/",
-    //   credentials: {
-    //     username: { label: "Username", type: "text", placeholder: "jsmith" },
-    //     password: { label: "Password", type: "password" },
-    //   },
-    // }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temp = { ...formValue };

@@ -7,6 +7,7 @@ const Authentication = () => {
   const handleLogin = async () => {
     await signIn("");
   };
+
   return (
     <div>
       <button
@@ -23,6 +24,8 @@ const Authentication = () => {
       >
         Logout
       </button>
+
+      <br />
     </div>
   );
 };

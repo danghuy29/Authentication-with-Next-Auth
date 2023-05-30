@@ -6,6 +6,10 @@ const nextConfig = {
     baseURL: process.env.NEXT_BASE_URL,
     mongoDbUrl: process.env.MONGODB_URL,
   },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
+  },
 };
 
 module.exports = nextConfig;

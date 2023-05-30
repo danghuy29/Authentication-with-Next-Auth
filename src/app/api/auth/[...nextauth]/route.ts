@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -12,29 +11,35 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        userName: { label: "ten", placeholder: "nhap ten di", type: "text" },
-        password: { label: "pass", placeholder: "nhap pass di", type: "text" },
+        username: { type: "text" },
+        password: {
+          type: "password",
+        },
       },
-      async authorize(req, res) {
-        console.log("request: ", req)
-        const user = {
-          id: "1",
-          name: "J Smith",
-          email: "jsmith@example.com",
-          test: "testing text",
-        };
+      async authorize(credentials) {
+        const res = await fetch(`${process.env.NEXT_BASE_URL}/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: credentials?.username || "",
+            password: credentials?.password || "",
+          }),
+        });
 
+        const user = await res.json();
         if (user) {
           return user;
-        } else {
-          return null;
         }
+
+        return null;
       },
     }),
   ],
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {},
 });
 

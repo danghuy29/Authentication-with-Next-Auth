@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/getReviews/getReview.js",
-    "src/lib/mongo/index.js"
+    "src/lib/mongo/index.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -14,10 +14,10 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { userName, password } = formValue;
+    const { email, password } = formValue;
     signIn("credentials", {
-      username: userName,
-      password: password,
+      email,
+      password,
       callbackUrl: "/",
     });
   };
@@ -40,10 +40,10 @@ const LoginForm = () => {
         <h3 className="text-5xl mb-14">Log In</h3>
         <FormField
           type="text"
-          id="login-user"
-          placeholder="User..."
-          name="userName"
-          label="User name"
+          id="login-email"
+          placeholder="Email..."
+          name="email"
+          label="Email"
           className="w-[90%] max-w-[507px] mb-[27px]"
           onChange={handleChange}
         />
@@ -69,7 +69,6 @@ const LoginForm = () => {
         >
           Log In
         </Button>
-
         <p className="mt-[27px]">
           Don &apos;t have account?{" "}
           <Link href="/signup" className="text-[#1A7FC1] ">

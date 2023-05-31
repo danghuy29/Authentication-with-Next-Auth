@@ -4,7 +4,7 @@ import { useState } from "react";
 import FormField from "../FormField/FormField";
 
 const SignUpForm = () => {
-  const [formValue, setFormValue] = useState<{ [key: string]: string }>({
+  const [formValue, setFormValue] = useState<Record<string, string>>({
     email: "",
     userName: "",
     password: "",
@@ -13,13 +13,18 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const { email, password } = formValue;
-    // try {
-    //   await logIn(email, password);
-    //   router.push("/");
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    const res = await fetch("http://localhost:3000/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: formValue.userName,
+        password: formValue.password,
+        email: formValue.email,
+      }),
+    });
+    const data = await res.json();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temp = { ...formValue };

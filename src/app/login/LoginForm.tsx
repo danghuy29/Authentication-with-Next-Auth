@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import FormField from "../FormField/FormField";
 import Link from "next/link";
-import Button from "../Button/Button";
 import { signIn } from "next-auth/react";
+import FormField from "components/FormField/FormField";
+import Button from "components/Button/Button";
 
 const LoginForm = () => {
   const [formValue, setFormValue] = useState<{ [key: string]: string }>({

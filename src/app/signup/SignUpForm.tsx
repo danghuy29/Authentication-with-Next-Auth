@@ -1,7 +1,7 @@
 "use client";
+import FormField from "components/FormField/FormField";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import FormField from "../FormField/FormField";
 
 const SignUpForm = () => {
   const [formValue, setFormValue] = useState<Record<string, string>>({

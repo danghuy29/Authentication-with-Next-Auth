@@ -1,8 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-const handler = NextAuth({
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "lib/mongo";
+export const authOptions: AuthOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.googleClientId as string,
@@ -28,7 +31,6 @@ const handler = NextAuth({
         });
         const user = await res.json();
         if (user?.data) {
-          console.log("user data: ", user.data);
           return {
             id: user.data._id,
             name: user.data.user,
@@ -48,15 +50,31 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, account }) => {
+      if (account) {
+        const { email } = user;
+        const res = await fetch(`${process.env.NEXT_BASE_URL}/api/loginOAuth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        });
+        const result = await res.json();
+        const accessToken = result?.data?.accessToken;
+        token.accessToken = accessToken;
+      }
+
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      // Send properties to the client, like an access_token and user id from a provider.
       session.user = token;
       return session;
     },
   },
-});
+};
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

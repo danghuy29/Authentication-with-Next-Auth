@@ -13,10 +13,12 @@ export async function POST(req: Request) {
   try {
     const re = await signUp(username, hashPassword, email);
     if (re) {
-      return new Response(JSON.stringify({ message: "user create" }));
+      return new Response(JSON.stringify({ message: "User is created" }), {
+        status: 201,
+      });
     }
-    return new Response(JSON.stringify({ message: "cannot be create" }), {
-      status: 403,
+    return new Response(JSON.stringify({ message: "Cannot create" }), {
+      status: 424,
     });
   } catch (err) {
     return new Response(JSON.stringify({ message: "Interval sever error" }), {
